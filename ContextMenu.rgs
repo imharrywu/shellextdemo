@@ -1,0 +1,85 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove %CLSID% = s 'Context Menu'
+		{
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+		}
+	}
+}
+
+HKCR
+{
+	NoRemove *
+	{
+		NoRemove ShellEx
+		{
+			NoRemove ContextMenuHandlers
+			{
+				ForceRemove '%DESCRIPTION%' = s '%CLSID%'
+			}
+			NoRemove DropHandler = s '%CLSID%'
+			NoRemove DropHandler
+			{
+				ForceRemove '%DESCRIPTION%' = s '%CLSID%'
+			}
+		}
+	}
+	NoRemove Directory
+	{
+		NoRemove Background
+		{
+			NoRemove ShellEx
+			{
+				NoRemove ContextMenuHandlers
+				{
+					ForceRemove '%DESCRIPTION%' = s '%CLSID%'
+				}
+				NoRemove DropHandler = s '%CLSID%'
+				NoRemove DropHandler
+				{
+					ForceRemove '%DESCRIPTION%' = s '%CLSID%'
+				}
+			}
+		}
+		NoRemove ShellEx
+		{
+			NoRemove ContextMenuHandlers
+			{
+				ForceRemove '%DESCRIPTION%' = s '%CLSID%'
+			}
+			NoRemove DropHandler = s '%CLSID%'
+			NoRemove DropHandler
+			{
+				ForceRemove '%DESCRIPTION%' = s '%CLSID%'
+			}
+		}
+	}
+}
+
+HKLM
+{
+	NoRemove Software
+	{
+		NoRemove Microsoft
+		{
+			NoRemove Windows
+			{
+				NoRemove CurrentVersion
+				{
+					NoRemove 'Shell Extensions'
+					{
+						NoRemove Approved
+						{
+							ForceRemove val %CLSID% = s '%DESCRIPTION%'
+						}
+					}
+				}
+			}
+		}
+	}
+}
